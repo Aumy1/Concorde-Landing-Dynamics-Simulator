@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" name="testLanding" skipped="0" tests="21" time="1.0535">
+    <testcase classname="testLanding" name="testLiftDragAgainstHandCalculation" time="0.17764"/>
+    <testcase classname="testLanding" name="testSteadyApproachForceBalance" time="0.014093"/>
+    <testcase classname="testLanding" name="testWindOnlyChangesHorizontalKinematics" time="0.0056682"/>
+    <testcase classname="testLanding" name="testAnalyticalConstantDecelerationStop" time="0.038771"/>
+    <testcase classname="testLanding" name="testOrderedExactEvents" time="0.011175"/>
+    <testcase classname="testLanding" name="testTouchdownResetPreservesHorizontalVelocity" time="0.017172"/>
+    <testcase classname="testLanding" name="testNoWindAirborneEnergyBalance" time="0.018123"/>
+    <testcase classname="testLanding" name="testGroundWorkEnergyBalance" time="0.013677"/>
+    <testcase classname="testLanding" name="testBaselinePhysicalInvariants" time="0.0096837"/>
+    <testcase classname="testLanding" name="testReducedFrictionIncreasesGroundRoll" time="0.082404"/>
+    <testcase classname="testLanding" name="testTailwindAndHeadwindTrend" time="0.12658"/>
+    <testcase classname="testLanding" name="testRemovingReverseIncreasesGroundRoll" time="0.055479"/>
+    <testcase classname="testLanding" name="testShortRunwayIsReported" time="0.047057"/>
+    <testcase classname="testLanding" name="testSolverConvergence" time="0.099652"/>
+    <testcase classname="testLanding" name="testDeterministicRepeat" time="0.05378"/>
+    <testcase classname="testLanding" name="testInvalidInputs" time="0.052187"/>
+    <testcase classname="testLanding" name="testAirTimeoutCannotReportSuccess" time="0.009243"/>
+    <testcase classname="testLanding" name="testGroundTimeoutCannotReportSuccess" time="0.028499"/>
+    <testcase classname="testLanding" name="testControlAuthorityIsLimited" time="0.006157"/>
+    <testcase classname="testLanding" name="testReverseAndBrakesCannotActBeforeDelay" time="0.0081559"/>
+    <testcase classname="testLanding" name="testExportRoundTrip" time="0.17829"/>
+  </testsuite>
+</testsuites>

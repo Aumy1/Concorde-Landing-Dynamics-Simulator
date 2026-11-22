@@ -1,0 +1,3 @@
+Touchdown 163.4 kt | sink 0.97 m/s | ground roll 1027 m
+Stop x 1474 m | runway remaining 1526 m | within runway: true
+Control saturation: false

@@ -1,0 +1,13 @@
+.DS_Store
+*.asv
+*.m~
+*.mex*
+*.slxc
+slprj/
+resources/project/
+results/interactive/
+results/custom/
+results/my-run/
+matlab_crash_dump*
+*.log
+local-assets/

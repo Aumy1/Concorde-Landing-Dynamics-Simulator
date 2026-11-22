@@ -1,0 +1,16 @@
+{
+  "touchdownTime_s": 35.241112436127764,
+  "touchdownAirspeed_mps": 84.052380654728921,
+  "touchdownAirspeed_kt": 163.38475721221619,
+  "touchdownGroundspeed_mps": 84.046836176487361,
+  "touchdownSinkRate_mps": 0.96541309818320908,
+  "touchdownX_m": 447.28928508620334,
+  "groundRoll_m": 1027.2016743999889,
+  "stopX_m": 1474.4909594861922,
+  "runwayRemaining_m": 1525.5090405138078,
+  "stoppedWithinRunway": true,
+  "groundRollTime_s": 23.717718608206255,
+  "peakGroundDeceleration_mps2": 3.9122930435288374,
+  "verticalContactEnergy_J": 48931.178632544383,
+  "anyControlSaturation": false
+}

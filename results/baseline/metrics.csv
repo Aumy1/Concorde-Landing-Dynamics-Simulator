@@ -1,0 +1,2 @@
+touchdownTime_s,touchdownAirspeed_mps,touchdownAirspeed_kt,touchdownGroundspeed_mps,touchdownSinkRate_mps,touchdownX_m,groundRoll_m,stopX_m,runwayRemaining_m,stoppedWithinRunway,groundRollTime_s,peakGroundDeceleration_mps2,verticalContactEnergy_J,anyControlSaturation
+35.2411124361278,84.0523806547289,163.384757212216,84.0468361764874,0.965413098183209,447.289285086203,1027.20167439999,1474.49095948619,1525.50904051381,1,23.7177186082063,3.91229304352884,48931.1786325444,0

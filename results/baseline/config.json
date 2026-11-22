@@ -1,0 +1,52 @@
+{
+  "aircraft": {
+    "mass": 105000,
+    "wingArea": 358.25,
+    "cd0": 0.045,
+    "inducedDrag": 0.18,
+    "clMax": 1.6,
+    "maxThrust": 300000
+  },
+  "environment": {
+    "rho": 1.225,
+    "g": 9.80665,
+    "wind": 0
+  },
+  "approach": {
+    "initialHeight": 150,
+    "thresholdHeight": 15,
+    "glideAngle": 0.05235987755982989,
+    "speed": 86
+  },
+  "flare": {
+    "height": 12,
+    "speed": 82,
+    "sinkTarget": 0.7
+  },
+  "control": {
+    "pathTimeConstant": 0.65,
+    "speedTimeConstant": 4
+  },
+  "ground": {
+    "brakeMu": 0.3,
+    "rollingMu": 0.015,
+    "brakeDelay": 1.5,
+    "brakeRamp": 1,
+    "residualCL": 0.15,
+    "liftDecayTime": 1,
+    "reverseForce": 85000,
+    "reverseDelay": 1,
+    "reverseRamp": 1.5,
+    "reverseFadeSpeed": 25
+  },
+  "runway": {
+    "length": 3000
+  },
+  "solver": {
+    "relativeTolerance": 1E-8,
+    "absoluteTolerance": 1E-9,
+    "maxStep": 0.1,
+    "maxAirTime": 180,
+    "maxGroundTime": 180
+  }
+}
