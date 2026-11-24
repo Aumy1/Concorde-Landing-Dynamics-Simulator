@@ -16,3 +16,7 @@ The public replay uses original procedural aircraft geometry. The user-supplied 
 - [Official MATLAB Actions](https://github.com/matlab-actions): setup and batch execution in the included GitHub Actions workflow.
 
 Pages were consulted November 21, 2026 (America/Toronto). See `docs/PARAMETERS.md` for the sourced-versus-estimated distinction. No reference photographs, official logo files, third-party source code, or proprietary performance tables are bundled. Charts are generated from this model. Product and organization names belong to their respective owners.
+
+## A350 / C++ update
+
+The project owner selected the A350 expansion and sunset visual direction. OpenAI Codex implemented the C++17 force kernel, MATLAB MEX adapter, A350 configuration, lighting and original procedural public fallback. The separate local CAD mesh is not distributed in this repository. The C++ core was compiled and tested separately; the MATLAB MEX build remains to be verified.

@@ -11,3 +11,4 @@ results/my-run/
 matlab_crash_dump*
 *.log
 local-assets/
+*.mp4

@@ -2,6 +2,11 @@ function [dy, f] = airborneRhs(~, y, p, phase)
 %AIRBORNERHS Point-mass longitudinal equations; y = [x; h; Vair; gamma].
 % Gamma is positive upward, thrust is aligned with air-relative velocity.
 % Guidance requests gamma and V; ideal force control is bounded by CL/T.
+if exist('flight_mex','file') == 3
+    [dy,f] = flight_mex('air',y,p,0,double(strcmp(phase,'flare')));
+    f.saturated = logical(f.saturated);
+    return;
+end
 v = max(y(3), 1); gamma = y(4);
 if strcmp(phase, 'approach')
     gammaRef = -p.approach.glideAngle;

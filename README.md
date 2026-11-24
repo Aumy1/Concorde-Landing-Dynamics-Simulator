@@ -1,4 +1,4 @@
-# Concorde Landing Dynamics Simulator
+# Concorde & A350 Landing Dynamics Simulator
 
 A MATLAB-first engineering portfolio project: simulate a simplified civilian landing from final approach through flare, touchdown, and ground roll. The emphasis is on transparent equations, repeatable numerical experiments, and test evidence.
 
@@ -126,3 +126,9 @@ results/verification/  JUnit XML and individual test results
 ```
 
 Start with [MODEL.md](docs/MODEL.md) for derivations and sign conventions, [PARAMETERS.md](docs/PARAMETERS.md) for every parameter and its provenance, and [PORTFOLIO.md](docs/PORTFOLIO.md) for an engineering walkthrough. See [ATTRIBUTION.md](ATTRIBUTION.md) for AI assistance and source-use disclosure. Code is available under the [MIT License](LICENSE).
+
+## A350 sunset replay and native C++17 backend
+
+Run `aircraft_selector` to choose the Concorde or the A350 (day or sunset). `run_a350` opens the sunset replay; `export_a350_video` records an MP4. The A350 configuration is a simplified educational estimate, not certified aircraft performance. The public repository uses an original illustrative procedural airliner model. For the optional colored CAD replay, provide a licensed OBJ/MTL and convert it with `python3 convert_a350.py path/to/model.obj local-assets/a350-cad.bin` (the loader expects the project's 300 mm source coordinate convention). Local CAD meshes and reference imagery are excluded from GitHub.
+
+With a supported C++ compiler, run `build_native` from MATLAB to build the MEX module; then `run_tests`. MATLAB calls the C++17 force calculations for approach, flare and ground roll; the MATLAB equations remain a fallback. The standalone C++ core tests passed and the MEX source passed compiler syntax checking; the MEX runtime build still requires verification. Sunset CAD replay was opened successfully in MATLAB R2026b. Standalone C++ test: `c++ -std=c++17 -O2 native/test_core.cpp -o /tmp/landing_native_test && /tmp/landing_native_test`.
