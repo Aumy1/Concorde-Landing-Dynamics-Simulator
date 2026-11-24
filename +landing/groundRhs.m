@@ -2,6 +2,10 @@ function [dy, f] = groundRhs(elapsed, y, p, touchdownCL)
 %GROUNDRHS Flat-runway roll; y = [x; ground speed], time since touchdown.
 % N = max(mg-L,0). Resistance always opposes forward travel. An event
 % terminates at zero speed, so wheel forces are not a static-friction model.
+if exist('flight_mex','file') == 3
+    [dy,f] = flight_mex('ground',y,p,elapsed,touchdownCL);
+    return;
+end
 u = max(y(2), 0);
 vAir = max(u - p.environment.wind, 0); % no reverse-flow aero at taxi speed
 f.cl = p.ground.residualCL + (touchdownCL-p.ground.residualCL) * ...
