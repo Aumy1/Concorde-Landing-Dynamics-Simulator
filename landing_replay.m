@@ -1,41 +1,60 @@
-function fig = landing_replay(result)
+function fig = landing_replay(result,theme)
 %LANDING_REPLAY Interactive 3D replay of the MATLAB civilian landing model.
 % landing_replay() uses the baseline; landing_replay(result) replays a run.
 % Space = pause/play; arrows = seek; 1–9 select cameras; C cycles them.
 if nargin < 1 || isempty(result), result = landing.simulate(); end
+if nargin < 2, theme = 'day'; end
+sunset = strcmpi(theme,'sunset');
 r = result; finish = r.events.stopTime;
+isA350 = isfield(r.config,'visual') && strcmp(r.config.visual.aircraft,'A350');
+aircraft = 'Concorde'; livery = 'BRITISH AIRWAYS / LANDOR LIVERY';
+if isA350, aircraft = 'Airbus A350'; livery = 'AIR CANADA / CONCEPT LIVERY'; end
 ink = [.065 .095 .13]; pale = [.87 .93 .96]; gold = [.99 .77 .38];
-fig = figure('Name','Concorde | 3D Landing Replay','NumberTitle','off', ...
+fig = figure('Name',[aircraft ' | 3D Landing Replay'],'NumberTitle','off', ...
     'MenuBar','none','ToolBar','none','Color',ink,'Position',[70 70 1240 760], ...
     'Resize','on','Tag','ConcordeReplay');
 scene = uipanel('Parent',fig,'Units','normalized','Position',[0 .18 1 .74], ...
     'BorderType','none','BackgroundColor',[.58 .72 .81]);
+if sunset, scene.BackgroundColor = [.68 .34 .35]; end
 ax = axes('Parent',scene,'Position',[0 0 1 1],'Color','none', ...
     'XColor','none','YColor','none','ZColor','none','Box','off', ...
     'DataAspectRatio',[1 1 1],'Projection','perspective');
 hold(ax,'on'); view(ax,3); disableDefaultInteractivity(ax);
 ax.Toolbar.Visible = 'off';
 L = r.config.runway.length;
-shadow = landing.airfieldScene(ax,L,r.air.state(1,1),r.metrics.stopX_m);
+shadow = landing.airfieldScene(ax,L,r.air.state(1,1),r.metrics.stopX_m,sunset);
 asset = fullfile(fileparts(mfilename('fullpath')),'local-assets','concorde-cad.bin');
-if isfile(asset)
+if isA350
+    a350asset = fullfile(fileparts(mfilename('fullpath')),'local-assets','a350-cad.bin');
+    if isfile(a350asset)
+        model = landing.a350AircraftMesh(ax,a350asset);
+    else
+        model = landing.a350ProceduralMesh(ax);
+    end
+elseif isfile(asset)
     model = landing.cadAircraftMesh(ax,asset);
 else
     model = landing.aircraftMesh(ax);
     model.isCAD = false;
     model.cockpit = [21 0 5.8];
 end
+if sunset && isA350, landing.a350Lights(model.root); end
 setappdata(fig,'ReplayUsesCAD',model.isCAD);
 xlim(ax,[r.air.state(1,1)-4000 max(L,r.metrics.stopX_m)+4300]);
 ylim(ax,[-3500 3500]); zlim(ax,[-1 max(320,r.config.approach.initialHeight+40)]);
-light(ax,'Style','infinite','Position',[-.7 -.9 1],'Color',[1 .96 .88]);
-light(ax,'Style','infinite','Position',[.1 1 .4],'Color',[.44 .50 .60]);
+if sunset
+    light(ax,'Style','infinite','Position',[1 -.4 .15],'Color',[1 .54 .24]);
+    light(ax,'Style','infinite','Position',[-.1 1 .6],'Color',[.34 .40 .68]);
+else
+    light(ax,'Style','infinite','Position',[-.7 -.9 1],'Color',[1 .96 .88]);
+    light(ax,'Style','infinite','Position',[.1 1 .4],'Color',[.44 .50 .60]);
+end
 uicontrol(fig,'Style','text','Units','normalized', ...
-    'Position',[.024 .93 .65 .049],'String','CONCORDE  /  LANDING REPLAY', ...
+    'Position',[.024 .93 .65 .049],'String',[upper(aircraft) ' / LANDING REPLAY'], ...
     'ForegroundColor',pale,'BackgroundColor',ink,'HorizontalAlignment','left', ...
     'FontWeight','bold','FontSize',18);
 uicontrol(fig,'Style','text','Units','normalized','Position',[.68 .938 .29 .033], ...
-    'String','BRITISH AIRWAYS  /  LANDOR LIVERY','ForegroundColor',gold, ...
+    'String',livery,'ForegroundColor',gold, ...
     'BackgroundColor',ink,'HorizontalAlignment','right','FontSize',10);
 hud = uicontrol(fig,'Style','text','Units','normalized','Position',[.024 .118 .95 .047], ...
     'ForegroundColor',pale,'BackgroundColor',ink,'FontName','Menlo', ...
@@ -82,8 +101,8 @@ render(max(0,r.events.flareTime-1),1);
         model.root.Matrix = makehgtform('translate',[s.x 0 visualHeight], ...
             'yrotate',-s.pitch);
         aa = linspace(0,2*pi,40);
-        shadow.XData = s.x+21*cos(aa); shadow.YData = 10*sin(aa);
-        shadow.FaceAlpha = .28*exp(-s.height/90);
+        shadow.XData = s.x+21*cos(aa); shadow.YData = (10+16*isA350)*sin(aa);
+        shadow.FaceAlpha = (.28-.12*sunset)*exp(-s.height/90);
         activeView = viewIndex;
         if viewIndex == 8
             td = r.events.touchdownTime;
@@ -117,7 +136,7 @@ render(max(0,r.events.flareTime-1),1);
                 target = [s.x+1 0 s.height+3]; fov = 34;
             case 6
                 eyePos = [s.x 0 s.height+132];
-                target = [s.x 0 0]; up = [1 0 0]; fov = 37;
+                target = [s.x 0 0]; up = [1 0 0]; fov = 37+10*isA350;
             case 7
                 eyePos = [r.metrics.touchdownX_m+55 -39 3.0];
                 target = [s.x 0 s.height+3];
